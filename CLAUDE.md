@@ -82,17 +82,20 @@ cd src && npx vitest run --coverage   # with coverage
 - Knowledge base: `.metaswarm/knowledge-base/`
 - CI: `.github/workflows/ci.yml`
 - Adversarial review: Gemini CLI
-- PR/issue automation: enabled (GitHub remote connected)
+- PR/issue automation: disabled (GitHub remote connected)
 
 Start work with `/metaswarm:start`. Check status with `/metaswarm:status`.
 
 ## CRITICAL RULES:
 
+- Create beads for each task in task.md file in each module and close it once completed.
+- Take the screenshot of the output and keep it in the same folder for each module.
 - DO NOT Commit any changes into Git
 - Pause on gatepath and wait for the input to move forward
 - Strictly follow the metaswarm. DO NOT stumbling to Claude.
 - Make sure to mark the tick mark for each task within the Task.md file
-- Make sure all the tasks are completed before get away from the module
+- Make sure all the tasks are completed before mark module as completed.
+- Keep the checklist for each task mentioned in task.md before ending the module session.
 - DO NOT skip any task/steps mentioned in the task.md file.
 
 
@@ -120,26 +123,19 @@ bd close <id>         # Complete work
 
 ## Session Completion
 
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+**When ending a work session**, you MUST complete ALL steps below.
 
 **MANDATORY WORKFLOW:**
 
 1. **File issues for remaining work** - Create issues for anything that needs follow-up
 2. **Run quality gates** (if code changed) - Tests, linters, builds
 3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
-   ```bash
-   git pull --rebase
-   git push
-   git status  # MUST show "up to date with origin"
-   ```
+4. **DO NOT PUSH TO REMOTE** - This is MANDATORY:
 5. **Clean up** - Clear stashes, prune remote branches
 6. **Verify** - All changes committed AND pushed
 7. **Hand off** - Provide context for next session
 
 **CRITICAL RULES:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
+- NEVER Push the changes.
+- Once everything completed, we will review and push at our end.
 <!-- END BEADS INTEGRATION -->

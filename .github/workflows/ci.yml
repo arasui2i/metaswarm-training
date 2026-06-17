@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    name: Backend — Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test with coverage
+        run: >
+          dotnet test --no-build --configuration Release
+          --collect:"XPlat Code Coverage"
+          --results-directory ./coverage
+
+      - name: Coverage threshold check
+        uses: danielpalme/ReportGenerator-GitHub-Action@5
+        with:
+          reports: "coverage/**/coverage.cobertura.xml"
+          targetdir: "coverage-report"
+          reporttypes: "TextSummary"
+          minimumCoverageThresholds: "lineCoverage:80"
+
+  frontend:
+    name: Frontend — Build & Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: src/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Test with coverage
+        run: npx vitest run --coverage --coverage.thresholds.lines=80 --coverage.thresholds.branches=80
+
+      - name: Build
+        run: npm run build

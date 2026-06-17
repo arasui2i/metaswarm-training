@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "project": {
+    "name": "CRM",
+    "type": "fullstack",
+    "description": "Customer Relationship Management app — ASP.NET Core 9 backend + React/TypeScript frontend"
+  },
+  "stack": {
+    "backend": {
+      "language": "csharp",
+      "framework": "aspnetcore9",
+      "architecture": "clean-architecture",
+      "patterns": ["cqrs", "mediatr", "repository"],
+      "orm": "ef-core-codefirst",
+      "database": "sql-server",
+      "auth": "jwt",
+      "validation": "fluentvalidation",
+      "testRunner": "nunit"
+    },
+    "frontend": {
+      "language": "typescript",
+      "framework": "react",
+      "ui": "material-ui",
+      "forms": "react-hook-form",
+      "dataFetching": "react-query",
+      "testRunner": "vitest",
+      "testUtils": "react-testing-library"
+    }
+  },
+  "quality": {
+    "coverageThreshold": 80,
+    "enforceOnPR": true
+  },
+  "ci": {
+    "provider": "github-actions",
+    "workflowFile": ".github/workflows/ci.yml"
+  },
+  "externalTools": {
+    "adversarialReview": "gemini"
+  },
+  "github": {
+    "enabled": true,
+    "prShepherd": false,
+    "issueAutomation": true
+  },
+  "features": [
+    "login-auth",
+    "lead-management",
+    "account-management"
+  ],
+  "specsDir": "specs"
+}
