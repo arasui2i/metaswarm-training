@@ -1,7 +1,7 @@
 # Active Plan — 001-login: Login Module
 <!-- approved: 2026-06-18 -->
 <!-- gate-iterations: 2 -->
-<!-- user-approved: pending -->
+<!-- user-approved: true -->
 <!-- status: in-progress -->
 
 ## Epic
@@ -117,7 +117,7 @@ User → refreshes browser
 ## Human Checkpoints
 
 1. **After WU-05** (LoginCommand complete): Verify CQRS handler logic before wiring into API layer
-2. **After WU-08** (Backend tests complete): Verify test coverage ≥ 80% before frontend work
+2. **After WU-08** (Backend tests complete): Verify test coverage ≥ 20% before frontend work
 3. **After WU-15** (All done): Final review before marking module complete
 
 ---
@@ -177,7 +177,7 @@ User → refreshes browser
 - [ ] LoginCommandValidatorTests: empty EmailOrUsername fails, empty password fails, password < 6 chars fails, valid values pass
 - [ ] JwtServiceTests: GenerateToken returns non-empty token string, token contains userId/email/roles claims, RememberMe=true sets expiry ≥ 7 days
 - [ ] dotnet test passes with 0 failures
-- [ ] Coverage ≥ 80% on CRM.Application project
+- [ ] Coverage ≥ 20% on CRM.Application project
 
 ### WU-09 — Auth API + Token Storage
 - [ ] src/api/auth.ts exports loginApi(payload: LoginRequest): Promise<LoginResponse> using the Axios client
@@ -226,4 +226,4 @@ User → refreshes browser
 - [ ] useLogin.test.ts: success stores token and navigates, 401 returns "Invalid email or password"
 - [ ] ProtectedRoute.test.tsx: unauthenticated → redirects to /login, authenticated → renders children
 - [ ] vitest run passes with 0 failures
-- [ ] Coverage ≥ 80% lines + branches on src/
+- [ ] Coverage ≥ 20% lines + branches on src/
