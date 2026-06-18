@@ -16,7 +16,7 @@ public class JwtService : IJwtService
         _configuration = configuration;
     }
 
-    public string GenerateToken(Guid userId, string email, string[] roles, bool rememberMe)
+    public string GenerateToken(Guid userId, string email, string[] roles, string[] permissions, bool rememberMe)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -28,6 +28,7 @@ public class JwtService : IJwtService
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
         claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
+        claims.AddRange(permissions.Select(p => new Claim("permission", p)));
 
         var expiry = rememberMe ? DateTime.UtcNow.AddDays(7) : DateTime.UtcNow.AddDays(1);
 

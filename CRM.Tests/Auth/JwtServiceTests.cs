@@ -25,7 +25,7 @@ public class JwtServiceTests
     [Test]
     public void GenerateToken_ReturnsNonEmptyString()
     {
-        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], false);
+        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], [], false);
         Assert.That(token, Is.Not.Null.And.Not.Empty);
     }
 
@@ -33,7 +33,7 @@ public class JwtServiceTests
     public void GenerateToken_ContainsSubClaim_MatchingUserId()
     {
         var userId = Guid.NewGuid();
-        var token = _sut.GenerateToken(userId, "user@example.com", [], false);
+        var token = _sut.GenerateToken(userId, "user@example.com", [], [], false);
         var parsed = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
         Assert.That(parsed.Subject, Is.EqualTo(userId.ToString()));
@@ -43,7 +43,7 @@ public class JwtServiceTests
     public void GenerateToken_ContainsEmailClaim()
     {
         var email = "user@example.com";
-        var token = _sut.GenerateToken(Guid.NewGuid(), email, [], false);
+        var token = _sut.GenerateToken(Guid.NewGuid(), email, [], [], false);
         var parsed = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
         var emailClaim = parsed.Claims.FirstOrDefault(c =>
@@ -57,7 +57,7 @@ public class JwtServiceTests
     public void GenerateToken_ContainsRoleClaims()
     {
         var roles = new[] { "Admin", "Sales" };
-        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", roles, false);
+        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", roles, [], false);
         var parsed = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
         var roleClaims = parsed.Claims
@@ -72,7 +72,7 @@ public class JwtServiceTests
     [Test]
     public void GenerateToken_RememberMeTrue_ExpiresInSevenDays()
     {
-        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], true);
+        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], [], true);
         var parsed = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
         Assert.That(parsed.ValidTo, Is.EqualTo(DateTime.UtcNow.AddDays(7)).Within(TimeSpan.FromSeconds(10)));
@@ -81,7 +81,7 @@ public class JwtServiceTests
     [Test]
     public void GenerateToken_RememberMeFalse_ExpiresInOneDay()
     {
-        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], false);
+        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], [], false);
         var parsed = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
         Assert.That(parsed.ValidTo, Is.EqualTo(DateTime.UtcNow.AddDays(1)).Within(TimeSpan.FromSeconds(10)));
@@ -90,7 +90,7 @@ public class JwtServiceTests
     [Test]
     public void GenerateToken_SetsCorrectIssuer()
     {
-        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], false);
+        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], [], false);
         var parsed = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
         Assert.That(parsed.Issuer, Is.EqualTo("CRM.API"));
@@ -99,7 +99,7 @@ public class JwtServiceTests
     [Test]
     public void GenerateToken_SetsCorrectAudience()
     {
-        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], false);
+        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], [], false);
         var parsed = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
         Assert.That(parsed.Audiences, Has.Member("CRM.Client"));
@@ -108,7 +108,7 @@ public class JwtServiceTests
     [Test]
     public void GenerateToken_NoRoles_ProducesNoRoleClaims()
     {
-        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], false);
+        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], [], false);
         var parsed = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
         var roleClaims = parsed.Claims
@@ -121,7 +121,7 @@ public class JwtServiceTests
     [Test]
     public void GenerateToken_ContainsJtiClaim()
     {
-        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], false);
+        var token = _sut.GenerateToken(Guid.NewGuid(), "user@example.com", [], [], false);
         var parsed = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
         var jti = parsed.Claims.FirstOrDefault(c =>

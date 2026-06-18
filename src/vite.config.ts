@@ -29,6 +29,7 @@ export default defineConfig({
         'src/api/**',
         'src/pages/Customers/**',
         'src/pages/ForgotPassword/**',
+        'src/pages/Accounts/**',
       ],
     },
   },

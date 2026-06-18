@@ -98,6 +98,15 @@ Start work with `/metaswarm:start`. Check status with `/metaswarm:status`.
 - Keep the checklist for each task mentioned in task.md before ending the module session.
 - DO NOT skip any task/steps mentioned in the task.md file.
 
+## Consent:
+
+- DO NOT ask for consent when using the CD commands
+- DO NOT ask for consent when creating the new files
+- DO NOT ask for consent when creating the folder
+- DO NOT ask for consent when using the beads claim.
+- DO NOT ask for consent when running the tests for both front end and back end.
+- Make sure to show the information in the console to keep track from the human side.
+
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:7510c1e2 -->
 ## Beads Issue Tracker

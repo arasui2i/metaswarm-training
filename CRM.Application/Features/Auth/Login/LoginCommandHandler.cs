@@ -26,8 +26,12 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginCommandRes
 
         var userWithRoles = await _userRepository.GetWithRolesAsync(user.Id, cancellationToken);
         var roles = userWithRoles?.UserRoles.Select(ur => ur.Role.Name).ToArray() ?? [];
+        var permissions = userWithRoles?.UserRoles
+            .SelectMany(ur => ur.Role.RolePermissions)
+            .Select(rp => rp.Permission.ActionKey)
+            .Distinct().ToArray() ?? [];
 
-        var token = _jwtService.GenerateToken(user.Id, user.Email, roles, request.RememberMe);
+        var token = _jwtService.GenerateToken(user.Id, user.Email, roles, permissions, request.RememberMe);
         var expiresAt = request.RememberMe
             ? DateTime.UtcNow.AddDays(7)
             : DateTime.UtcNow.AddDays(1);

@@ -22,6 +22,52 @@ namespace CRM.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CRM.Domain.Entities.Lead", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Leads", (string)null);
+                });
+
             modelBuilder.Entity("CRM.Domain.Entities.Permission", b =>
                 {
                     b.Property<Guid>("Id")
@@ -52,6 +98,30 @@ namespace CRM.Infrastructure.Migrations
                             Id = new Guid("e5e5e5e5-e5e5-e5e5-e5e5-e5e5e5e5e5e5"),
                             ActionKey = "customers.edit",
                             Name = "Customers Edit"
+                        },
+                        new
+                        {
+                            Id = new Guid("f6f6f6f6-f6f6-f6f6-f6f6-f6f6f6f6f6f6"),
+                            ActionKey = "leads.view",
+                            Name = "Leads View"
+                        },
+                        new
+                        {
+                            Id = new Guid("a7a7a7a7-a7a7-a7a7-a7a7-a7a7a7a7a7a7"),
+                            ActionKey = "leads.create",
+                            Name = "Leads Create"
+                        },
+                        new
+                        {
+                            Id = new Guid("b8b8b8b8-b8b8-b8b8-b8b8-b8b8b8b8b8b8"),
+                            ActionKey = "leads.edit",
+                            Name = "Leads Edit"
+                        },
+                        new
+                        {
+                            Id = new Guid("c9c9c9c9-c9c9-c9c9-c9c9-c9c9c9c9c9c9"),
+                            ActionKey = "leads.delete",
+                            Name = "Leads Delete"
                         });
                 });
 
@@ -111,6 +181,56 @@ namespace CRM.Infrastructure.Migrations
                         {
                             RoleId = new Guid("a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1"),
                             PermissionId = new Guid("e5e5e5e5-e5e5-e5e5-e5e5-e5e5e5e5e5e5")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1"),
+                            PermissionId = new Guid("f6f6f6f6-f6f6-f6f6-f6f6-f6f6f6f6f6f6")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1"),
+                            PermissionId = new Guid("a7a7a7a7-a7a7-a7a7-a7a7-a7a7a7a7a7a7")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1"),
+                            PermissionId = new Guid("b8b8b8b8-b8b8-b8b8-b8b8-b8b8b8b8b8b8")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1"),
+                            PermissionId = new Guid("c9c9c9c9-c9c9-c9c9-c9c9-c9c9c9c9c9c9")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2"),
+                            PermissionId = new Guid("d4d4d4d4-d4d4-d4d4-d4d4-d4d4d4d4d4d4")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2"),
+                            PermissionId = new Guid("f6f6f6f6-f6f6-f6f6-f6f6-f6f6f6f6f6f6")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2"),
+                            PermissionId = new Guid("a7a7a7a7-a7a7-a7a7-a7a7-a7a7a7a7a7a7")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2"),
+                            PermissionId = new Guid("b8b8b8b8-b8b8-b8b8-b8b8-b8b8b8b8b8b8")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("c3c3c3c3-c3c3-c3c3-c3c3-c3c3c3c3c3c3"),
+                            PermissionId = new Guid("d4d4d4d4-d4d4-d4d4-d4d4-d4d4d4d4d4d4")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("c3c3c3c3-c3c3-c3c3-c3c3-c3c3c3c3c3c3"),
+                            PermissionId = new Guid("f6f6f6f6-f6f6-f6f6-f6f6-f6f6f6f6f6f6")
                         });
                 });
 

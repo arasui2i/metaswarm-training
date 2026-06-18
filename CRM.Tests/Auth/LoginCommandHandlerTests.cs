@@ -33,7 +33,7 @@ public class LoginCommandHandlerTests
         };
 
         _jwtServiceMock
-            .Setup(s => s.GenerateToken(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string[]>(), It.IsAny<bool>()))
+            .Setup(s => s.GenerateToken(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string[]>(), It.IsAny<string[]>(), It.IsAny<bool>()))
             .Returns("mock-jwt-token");
     }
 

@@ -13,7 +13,7 @@ export function useLogin() {
     onSuccess: (data, variables) => {
       setToken(data.accessToken, variables.rememberMe);
       setAuth(data.user, data.accessToken);
-      navigate('/customers');
+      navigate('/leads');
     },
   });
 }

@@ -4,11 +4,8 @@
     <DataCollectors>
       <DataCollector friendlyName="XPlat Code Coverage">
         <Configuration>
-          <Exclude>
-            [CRM.Infrastructure]CRM.Infrastructure.Persistence.*,
-            [CRM.Infrastructure]CRM.Infrastructure.Repositories.*,
-            [CRM.Infrastructure]CRM.Infrastructure.Migrations.*
-          </Exclude>
+          <Exclude>[CRM.Infrastructure]*</Exclude>
+          <ExcludeByAttribute>ExcludeFromCodeCoverage</ExcludeByAttribute>
         </Configuration>
       </DataCollector>
     </DataCollectors>

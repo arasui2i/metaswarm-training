@@ -8,11 +8,10 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
         AuthorizationHandlerContext context,
         PermissionRequirement requirement)
     {
-        var hasRole = context.User.Claims.Any(c =>
-            c.Type == System.Security.Claims.ClaimTypes.Role &&
-            c.Value == requirement.ActionKey);
+        var hasPermission = context.User.Claims.Any(c =>
+            c.Type == "permission" && c.Value == requirement.ActionKey);
 
-        if (hasRole)
+        if (hasPermission)
             context.Succeed(requirement);
 
         return Task.CompletedTask;

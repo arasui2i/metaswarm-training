@@ -1,0 +1,71 @@
+## 002-Lead-Management — Test Output Summary
+Generated: 2026-06-18
+
+=== BACKEND TESTS ===
+Command: dotnet test --settings coverlet.runsettings --collect:"XPlat Code Coverage" --logger "trx;LogFileName=TestRun.trx"
+
+Result: 57/57 PASSED, 0 FAILED, Duration: 3.2s
+
+Tests Added for Lead Management:
+  ✓ CreateLeadValidatorTests (7 tests)
+    - Validate_ValidCommand_Passes
+    - Validate_EmptyFirstName_Fails
+    - Validate_EmptyCompanyName_Fails
+    - Validate_EmptyEmail_Fails
+    - Validate_InvalidEmailFormat_Fails
+    - Validate_AllFieldsEmpty_FailsMultipleRules
+    - Validate_WithOptionalFieldsNull_Passes
+    - Validate_WithAllFieldsPopulated_Passes
+
+  ✓ CreateLeadHandlerTests (4 tests)
+    - Handle_ValidCommand_CallsAddAsyncAndReturnsGuid
+    - Handle_ValidCommand_MapsAllFieldsToLeadEntity
+    - Handle_ValidCommand_AssignsNewGuidAndCreatedAt
+    - Handle_WithNullOptionalFields_CreatesLeadWithNulls
+
+  ✓ GetLeadsHandlerTests (8 tests)
+    - Handle_ReturnsMappedPagedResult
+    - Handle_MapsFullNameCorrectly
+    - Handle_NullLastName_FullNameIsTrimmedFirstName
+    - Handle_MapsStatusCorrectly
+    - Handle_PassesSearchTermToRepository
+    - Handle_PassesPagingParametersToRepository
+    - Handle_EmptyResult_ReturnsEmptyItems
+    - Handle_MapsDtoFieldsFromLeadEntity
+
+  ✓ UpdateLeadHandlerTests (3 tests)
+    - Handle_ExistingLead_UpdatesFieldsAndCallsUpdateAsync
+    - Handle_LeadNotFound_ThrowsNotFoundException
+    - Handle_ExistingLead_UpdatesOwnerIdToNull
+
+  ✓ DeleteLeadHandlerTests (3 tests)
+    - Handle_ExistingLead_CallsSoftDeleteAsync
+    - Handle_LeadNotFound_ThrowsNotFoundException
+    - Handle_ExistingLead_DoesNotCallSoftDeleteWhenGetByIdReturnsNull
+
+  ✓ GetLeadByIdHandlerTests (3 tests)
+    - Handle_ExistingLead_ReturnsMappedDetailDto
+    - Handle_LeadNotFound_ThrowsNotFoundException
+    - Handle_LeadWithNullOptionalFields_MapsNullsToDto
+
+Coverage (Infrastructure excluded via coverlet.runsettings):
+  CRM.Application : Lines 95.2% | Branches 88.9%  ✅ (gate: 80%)
+  CRM.Domain      : Lines 100%  | Branches 100%   ✅
+  Overall         : Lines 96.2% | Branches 88.88% ✅
+
+=== FRONTEND TESTS ===
+Command: npx vitest run --coverage
+
+Result: 39/39 PASSED, 0 FAILED
+
+Tests Added for Lead Management:
+  ✓ LeadListPage.test.tsx (10 tests)
+  ✓ LeadFormPage.test.tsx (8 tests)
+
+Coverage (Accounts page excluded):
+  Lines:    93.25%  ✅ (gate: 80%)
+  Branches: 88.88%  ✅ (gate: 80%)
+
+=== ADVERSARIAL REVIEW ===
+WU-06 review: PASS (attempt 2/3)
+All 8 DoD items verified with file:line evidence.
