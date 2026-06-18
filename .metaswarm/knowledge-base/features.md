@@ -32,13 +32,19 @@ CRM.API/Authorization/PermissionAuthorizationHandler.cs
 
 ### Key Files (Frontend)
 ```
-src/api/auth.ts
-src/hooks/useLogin.ts
-src/context/AuthContext.tsx
-src/components/ProtectedRoute.tsx
-src/pages/Login/LoginPage.tsx
-src/App.tsx  (routes: /login, /customers, / → /customers)
+src/src/api/client.ts         (Axios base instance + Bearer interceptor + setToken/getToken/clearToken)
+src/src/api/auth.ts           (loginApi — POST /api/auth/login)
+src/src/hooks/useLogin.ts     (useMutation → setToken + setAuth + navigate('/customers'))
+src/src/context/AuthContext.tsx (AuthProvider, useAuth hook, JWT rehydration on mount)
+src/src/components/ProtectedRoute.tsx
+src/src/pages/Login/LoginPage.tsx  (MUI split-panel, RHF, password toggle, rememberMe)
+src/src/App.tsx               (BrowserRouter, all routes wired)
 ```
+
+### Status
+- **COMPLETE** — all 15 work units closed, epic closed
+- Backend tests: 28/28 passing, 100% line coverage
+- Frontend tests: 21/21 passing, 97.4% line / 83.3% branch coverage
 
 ### API
 - `POST /api/auth/login` → `{ accessToken, expiresAt, user: { id, email, username, roles[] } }`

@@ -28,11 +28,14 @@ src/                 — React + TypeScript frontend
 
 ## Frontend Patterns
 
-- **Auth Context** (`src/context/AuthContext.tsx`): stores `{ user, roles, token, isAuthenticated }`, rehydrates from storage on mount
-- **Protected Route** (`src/components/ProtectedRoute.tsx`): redirects unauthenticated users to `/login`
-- **React Query**: all server state via `useQuery` / `useMutation` hooks in `src/hooks/`
-- **API layer** (`src/api/`): thin typed wrappers over fetch — one file per domain (auth.ts, leads.ts, accounts.ts)
-- **Token storage**: `localStorage` when RememberMe, `sessionStorage` otherwise
+- **Vite source root**: `src/src/` (nested). npm project is `src/`, Vite source root is `src/src/`. All imports are relative to `src/src/`.
+- **Auth Context** (`src/src/context/AuthContext.tsx`): stores `{ user, token, isAuthenticated }`, rehydrates from storage on mount via `parseJwt()`
+- **Protected Route** (`src/src/components/ProtectedRoute.tsx`): `isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />`
+- **React Query**: all server state via `useQuery` / `useMutation` hooks in `src/src/hooks/`
+- **API layer** (`src/src/api/`): `client.ts` (Axios instance + Bearer interceptor), one file per domain (auth.ts, leads.ts, accounts.ts)
+- **Token storage**: `localStorage` when RememberMe=true, `sessionStorage` when RememberMe=false
+- **MUI version**: v9 — use `slotProps={{ input: { endAdornment: ... } }}` NOT deprecated `InputProps`
+- **Router**: React Router DOM v7 — same API as v6 for basic routing
 
 ## Feature Folder Convention
 
